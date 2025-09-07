@@ -5,7 +5,6 @@ app = Flask(__name__)
 
 # --- Configure sua chave de API aqui ---
 API_KEY = "01cff47d321d789bd5933fe3bfe1c7db"
-# Lembre-se de substituir "SUA_CHAVE_DA_API_AQUI" pela chave que você copiou do site.
 
 # --- Funções para Requisições à API Real ---
 def get_clima_real(localizacao):
