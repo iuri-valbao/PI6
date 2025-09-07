@@ -24,3 +24,6 @@ htmlcov/
 
 # Environment variables file
 .env
+
+# Sensitive data
+data/

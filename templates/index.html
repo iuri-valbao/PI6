@@ -94,24 +94,28 @@
             
             <button type="submit">Buscar Recomendações</button>
         </form>
-
+        
         {% if resultados %}
         <div class="resultados">
-            <h2>Resultados da Pesquisa</h2>
-            <p><strong>Cultura:</strong> {{ resultados.cultura_pesquisada }}</p>
-            <p><strong>Localização:</strong> {{ resultados.localizacao_pesquisada }}</p>
-            <p><strong>Condições Locais:</strong> Temperatura {{ resultados.condicoes_locais.temperatura }}, Pluviosidade {{ resultados.condicoes_locais.pluviosidade }}, Solo {{ resultados.condicoes_locais.solo }}</p>
+            {% if resultados.erro %}
+                <p style="color: red; font-weight: bold;">{{ resultados.erro }}</p>
+            {% else %}
+                <h2>Resultados da Pesquisa</h2>
+                <p><strong>Cultura:</strong> {{ resultados.cultura_pesquisada }}</p>
+                <p><strong>Localização:</strong> {{ resultados.localizacao_pesquisada }}</p>
+                <p><strong>Condições Locais:</strong> Temperatura {{ resultados.condicoes_locais.temperatura }}, Pluviosidade {{ resultados.condicoes_locais.pluviosidade }}, Umidade {{ resultados.condicoes_locais.umidade }}</p>
 
-            <h3>Melhores Variedades de Sementes</h3>
-            {% for variedade in resultados.recomendacoes %}
-                <div class="resultado-item">
-                    <h3>{{ variedade.nome }}</h3>
-                    <div class="info-detalhe"><strong>Descrição:</strong> {{ variedade.detalhes }}</div>
-                    <div class="info-detalhe"><strong>Irrigação:</strong> {{ variedade.irrigacao }}</div>
-                    <div class="info-detalhe"><strong>Melhor Época:</strong> {{ variedade.epoca }}</div>
-                    <div class="info-detalhe"><strong>Performance Esperada:</strong> {{ variedade.performance }}</div>
-                </div>
-            {% endfor %}
+                <h3>Melhores Variedades de Sementes</h3>
+                {% for variedade in resultados.recomendacoes %}
+                    <div class="resultado-item">
+                        <h3>{{ variedade.nome }}</h3>
+                        <div class="info-detalhe"><strong>Descrição:</strong> {{ variedade.detalhes }}</div>
+                        <div class="info-detalhe"><strong>Irrigação:</strong> {{ variedade.irrigacao }}</div>
+                        <div class="info-detalhe"><strong>Melhor Época:</strong> {{ variedade.epoca }}</div>
+                        <div class="info-detalhe"><strong>Performance Esperada:</strong> {{ variedade.performance }}</div>
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
         {% endif %}
     </div>
