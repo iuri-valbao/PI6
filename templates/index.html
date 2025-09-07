@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seletor de Sementes</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f0f4f7;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box; /* Garante que o padding não aumente a largura */
+        }
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #3498db;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .resultados {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #ecf0f1;
+        }
+        .resultado-item {
+            background-color: #eaf6ff;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border-left: 5px solid #3498db;
+        }
+        .resultado-item h3 {
+            margin-top: 0;
+            color: #2980b9;
+        }
+        .info-detalhe {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Seletor de Sementes</h1>
+        <p>Informe o que você deseja plantar e sua localização para receber recomendações personalizadas.</p>
+
+        <form method="POST">
+            <label for="cultura">O que você quer plantar?</label>
+            <input type="text" id="cultura" name="cultura" placeholder="Ex: Tomate" required>
+            
+            <label for="localizacao">Onde você está?</label>
+            <input type="text" id="localizacao" name="localizacao" placeholder="Ex: São Paulo, SP" required>
+            
+            <button type="submit">Buscar Recomendações</button>
+        </form>
+
+        {% if resultados %}
+        <div class="resultados">
+            <h2>Resultados da Pesquisa</h2>
+            <p><strong>Cultura:</strong> {{ resultados.cultura_pesquisada }}</p>
+            <p><strong>Localização:</strong> {{ resultados.localizacao_pesquisada }}</p>
+            <p><strong>Condições Locais:</strong> Temperatura {{ resultados.condicoes_locais.temperatura }}, Pluviosidade {{ resultados.condicoes_locais.pluviosidade }}, Solo {{ resultados.condicoes_locais.solo }}</p>
+
+            <h3>Melhores Variedades de Sementes</h3>
+            {% for variedade in resultados.recomendacoes %}
+                <div class="resultado-item">
+                    <h3>{{ variedade.nome }}</h3>
+                    <div class="info-detalhe"><strong>Descrição:</strong> {{ variedade.detalhes }}</div>
+                    <div class="info-detalhe"><strong>Irrigação:</strong> {{ variedade.irrigacao }}</div>
+                    <div class="info-detalhe"><strong>Melhor Época:</strong> {{ variedade.epoca }}</div>
+                    <div class="info-detalhe"><strong>Performance Esperada:</strong> {{ variedade.performance }}</div>
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
