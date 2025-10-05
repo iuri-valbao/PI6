@@ -6,7 +6,7 @@ app = Flask(__name__)
 # --- Configure sua chave de API aqui ---
 API_KEY = "01cff47d321d789bd5933fe3bfe1c7db"
 
-# --- Funções para Requisições à API Real ---
+# --- Funções para Requisições à API ---
 def get_clima_real(localizacao):
     """
     Consulta a API OpenWeatherMap para obter dados de clima.
@@ -18,7 +18,7 @@ def get_clima_real(localizacao):
     try:
         # Requisição para obter latitude e longitude
         response_geo = requests.get(geocoding_url)
-        response_geo.raise_for_status() # Lança um erro para status de erro (4xx ou 5xx)
+        response_geo.raise_for_status() # Lança um erro para status de erro 
         geo_data = response_geo.json()
 
         if not geo_data:
